@@ -16,6 +16,12 @@ import android.net.Uri
 import android.text.ClipboardManager
 import android.view.View
 import android.widget.Toast
+import android.support.v4.view.MenuItemCompat.getActionProvider
+import android.support.v7.widget.ShareActionProvider
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Button
+import java.nio.charset.Charset
 
 
 class ResultActivity : AppCompatActivity() {
@@ -53,6 +59,38 @@ class ResultActivity : AppCompatActivity() {
     fun clickLink(view: View) {
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(intent.getStringExtra("URL")))
         startActivity(browserIntent)
+    }
+
+    fun shareLink() {
+        val sharingIntent = Intent(android.content.Intent.ACTION_SEND)
+        sharingIntent.type = "text/plain"
+        val shareBody = intent.getStringExtra("URL")
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "An EZ paste has been shared with you: ")
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody)
+        startActivity(Intent.createChooser(sharingIntent, "Share via"))
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.result, menu)
+        return true
+    }
+
+    fun new_paste(){
+        val intent = Intent(baseContext, MainActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            R.id.action_share ->
+                shareLink()
+            R.id.action_new ->
+                new_paste()
+            R.id.action_exit ->
+                System.exit(0)
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     fun copyLink(view: View) {

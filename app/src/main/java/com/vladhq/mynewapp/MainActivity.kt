@@ -36,6 +36,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {}
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.main, menu)
@@ -79,7 +81,7 @@ class MainActivity : AppCompatActivity() {
             override fun onSuccess(statusCode: Int, headers: Array<out Header>?, responseBody: ByteArray?) {
                 if (responseBody != null) {
                     val handler = Handler()
-                    handler.postDelayed(Runnable {
+                    handler.postDelayed({
                         println("SUCCESS: Note uploaded at "+responseBody.toString(Charset.defaultCharset()))
                         progress.dismiss();
                         val intent = Intent(baseContext, ResultActivity::class.java)
@@ -92,7 +94,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onStart() {
                 progress.setTitle("Saving note")
-                progress.setMessage("Wait while your paste is saved & uploaded...")
+                progress.setMessage("Please wait while your paste is saved & uploaded...")
                 progress.setCancelable(false)
                 progress.show()
             }
