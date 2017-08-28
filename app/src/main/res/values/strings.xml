@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">MyNewApp</string>
+    <string name="app_name">Notes App</string>
+    <string name="edit_note">Edit text...</string>
+    <string name="save_button">Upload</string>
+    <string name="subject_hint">Subject</string>
+    <string name="title_activity_main2">Main2Activity</string>
 </resources>
