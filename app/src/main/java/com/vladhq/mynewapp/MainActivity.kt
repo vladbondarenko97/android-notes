@@ -17,9 +17,6 @@ import com.loopj.android.http.AsyncHttpResponseHandler
 import com.loopj.android.http.RequestParams
 import cz.msebera.android.httpclient.Header
 import java.nio.charset.Charset
-import android.content.SharedPreferences
-
-
 
 
 class MainActivity : AppCompatActivity() {
@@ -36,18 +33,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {}
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.main, menu)
         return true
     }
 
+    fun gotoList() {
+        val intent = Intent(baseContext, ContentActivity::class.java)
+        startActivity(intent)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.getItemId()) {
             R.id.action_exit ->
                 System.exit(0)
+            R.id.action_list ->
+                gotoList()
         }
         return super.onOptionsItemSelected(item)
     }

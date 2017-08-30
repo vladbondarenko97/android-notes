@@ -1,27 +1,23 @@
 package com.vladhq.mynewapp
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Paint
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.text.ClipboardManager
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
-import android.content.Intent
-import android.net.Uri
-import android.text.ClipboardManager
-import android.view.View
-import android.widget.Toast
-import android.support.v4.view.MenuItemCompat.getActionProvider
-import android.support.v7.widget.ShareActionProvider
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.Button
-import java.nio.charset.Charset
 
 
 class ResultActivity : AppCompatActivity() {
