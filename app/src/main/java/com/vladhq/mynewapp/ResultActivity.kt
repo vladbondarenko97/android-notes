@@ -61,7 +61,7 @@ class ResultActivity : AppCompatActivity() {
         val sharingIntent = Intent(android.content.Intent.ACTION_SEND)
         sharingIntent.type = "text/plain"
         val shareBody = intent.getStringExtra("URL")
-        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "An EZ paste has been shared with you: ")
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "View this paste at ")
         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody)
         startActivity(Intent.createChooser(sharingIntent, "Share via"))
     }

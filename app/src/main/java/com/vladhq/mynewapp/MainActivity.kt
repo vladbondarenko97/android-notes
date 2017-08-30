@@ -89,6 +89,26 @@ class MainActivity : AppCompatActivity() {
                         val intent = Intent(baseContext, ResultActivity::class.java)
                         intent.putExtra("URL", responseBody.toString(Charset.defaultCharset()))
                         intent.putExtra("NOTE", notes.text.toString())
+
+
+                        // -- add to SharedPreferences
+                        // unixtime,url::
+
+                        val prefs = getSharedPreferences("notes", Context.MODE_PRIVATE)
+                        val editor = prefs.edit()
+                        val unixTime = System.currentTimeMillis() / 1000;
+                        val restoredText = prefs.getString("pastes", null)
+
+                        if (restoredText != null) {
+                            val pastes = prefs.getString("pastes", "")
+                            editor.putString("pastes", pastes + "::" + unixTime + "," + responseBody.toString(Charset.defaultCharset()))
+                            editor.apply()
+                        } else {
+                            editor.putString("pastes", "" + unixTime + "," + responseBody.toString(Charset.defaultCharset()))
+                            editor.apply()
+                        }
+
+
                         startActivity(intent)
                     }, 500)
                 }
@@ -107,7 +127,6 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onRetry(retryNo: Int) {
-                // called when request is retried
             }
         })
     }

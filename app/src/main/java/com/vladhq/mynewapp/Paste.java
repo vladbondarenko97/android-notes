@@ -2,14 +2,15 @@ package com.vladhq.mynewapp;
 
 
 public class Paste {
-    private String title, year;
+    private String title, url, data;
 
     public Paste() {
     }
 
-    public Paste(String title, String year) {
+    public Paste(String title, String url, String data) {
         this.title = title;
-        this.year = year;
+        this.url = url;
+        this.data = data;
     }
 
     public String getTitle() {
@@ -20,11 +21,19 @@ public class Paste {
         this.title = name;
     }
 
-    public String getYear() {
-        return year;
+    public String getUrl() {
+        return url;
     }
 
-    public void setYear(String year) {
-        this.year = year;
+    public void setUrl(String year) {
+        this.url = url;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
 }
