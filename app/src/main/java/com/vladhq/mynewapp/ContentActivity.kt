@@ -12,6 +12,7 @@ import android.text.format.DateFormat
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import org.json.JSONObject
 import java.util.*
 
 
@@ -64,24 +65,39 @@ class ContentActivity : AppCompatActivity() {
     private fun preparePasteData() {
 
         val prefs = getSharedPreferences("notes", Context.MODE_PRIVATE)
-        val restoredText = prefs.getString("pastes", null)
+        val json = prefs.getString("list", null)
         var warning = findViewById(R.id.warning) as TextView
 
-        if (restoredText != null) {
+        if (json != null) {
             if(warning.getVisibility() == View.VISIBLE) {
                 warning.setVisibility(View.INVISIBLE);
             }
-            val name = prefs.getString("pastes", "")
 
-            if(!name.contains("::")) { // not empty and only one paste
+            try {
+
+                val obj = JSONObject(json)
+                for (i in 0..obj.names().length() - 1) {
+                    println("JSON TESTING: unixTime = " + obj.names().getString(i) + " url = " + obj.get(obj.names().getString(i)))
+                    val unix_time = DateFormat.format("MM/dd/yyyy hh:mm:ss aa", obj.names().getString(i).toLong() * 1000);
+                    var paste = Paste(unix_time.toString(), obj.get(obj.names().getString(i)).toString(), "N/A")
+                    pasteList.add(paste)
+                }
+
+
+            } catch (t: Throwable) {
+                println("Error loading JSON from shared preferences. (4)");
+            }
+
+
+            /*if(!name.contains("::")) { // not empty and only one paste
                 val data = name.split(",")
-                val unix_time = DateFormat.format("MM/dd/yyyy hh:mm:ss aa", data[0].toLong() * 1000);
+
                 var paste = Paste(unix_time.toString(), data[1], name)
                 pasteList.add(paste)
             } else {
                 val entries = name.split("::")
                 // TODO: Implement for each loop
-            }
+            }*/
 
             mAdapter!!.notifyDataSetChanged()
         } else {

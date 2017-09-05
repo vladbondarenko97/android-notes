@@ -17,6 +17,10 @@ import com.loopj.android.http.AsyncHttpResponseHandler
 import com.loopj.android.http.RequestParams
 import cz.msebera.android.httpclient.Header
 import java.nio.charset.Charset
+import org.json.JSONException
+import org.json.JSONObject
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -90,23 +94,45 @@ class MainActivity : AppCompatActivity() {
                         intent.putExtra("URL", responseBody.toString(Charset.defaultCharset()))
                         intent.putExtra("NOTE", notes.text.toString())
 
-
-                        // -- add to SharedPreferences
-                        // unixtime,url::
-
+/*
                         val prefs = getSharedPreferences("notes", Context.MODE_PRIVATE)
                         val editor = prefs.edit()
                         val unixTime = System.currentTimeMillis() / 1000;
-                        val restoredText = prefs.getString("pastes", null)
+                        val pastes = prefs.getString("list", null)
 
-                        if (restoredText != null) {
-                            val pastes = prefs.getString("pastes", "")
-                            editor.putString("pastes", pastes + "::" + unixTime + "," + responseBody.toString(Charset.defaultCharset()))
-                            editor.apply()
+
+                        if (pastes != null) {
+                            try {
+
+                                val obj = JSONObject(pastes)
+                                try {
+                                    obj.put(unixTime.toString(), responseBody.toString(Charset.defaultCharset()))
+
+                                } catch (e: JSONException) {
+                                    println("Error loading JSON from shared preferences. (1)");
+                                }
+
+                                editor.putString("list", obj.toString())
+                                println("Saved JSON to shared preferences - " + obj.toString())
+                                editor.apply()
+
+                            } catch (t: Throwable) {
+                                println("Error loading JSON from shared preferences. (2)");
+                            }
+
                         } else {
-                            editor.putString("pastes", "" + unixTime + "," + responseBody.toString(Charset.defaultCharset()))
+                            val json = JSONObject()
+                            try {
+                                json.put(unixTime.toString(), responseBody.toString(Charset.defaultCharset()))
+
+                            } catch (e: JSONException) {
+                                println("Error loading JSON from shared preferences. (3)");
+                            }
+                            editor.putString("list", json.toString())
+                            println("JSON TEST" + json.toString())
                             editor.apply()
-                        }
+
+                        }*/
 
 
                         startActivity(intent)
