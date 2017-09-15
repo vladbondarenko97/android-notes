@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity() {
                         intent.putExtra("URL", responseBody.toString(Charset.defaultCharset()))
                         intent.putExtra("NOTE", notes.text.toString())
 
-/*
+
                         val prefs = getSharedPreferences("notes", Context.MODE_PRIVATE)
                         val editor = prefs.edit()
                         val unixTime = System.currentTimeMillis() / 1000;
@@ -132,7 +132,7 @@ class MainActivity : AppCompatActivity() {
                             println("JSON TEST" + json.toString())
                             editor.apply()
 
-                        }*/
+                        }
 
 
                         startActivity(intent)

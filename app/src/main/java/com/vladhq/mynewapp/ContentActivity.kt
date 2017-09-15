@@ -88,17 +88,6 @@ class ContentActivity : AppCompatActivity() {
                 println("Error loading JSON from shared preferences. (4)");
             }
 
-
-            /*if(!name.contains("::")) { // not empty and only one paste
-                val data = name.split(",")
-
-                var paste = Paste(unix_time.toString(), data[1], name)
-                pasteList.add(paste)
-            } else {
-                val entries = name.split("::")
-                // TODO: Implement for each loop
-            }*/
-
             mAdapter!!.notifyDataSetChanged()
         } else {
             warning.setVisibility(View.VISIBLE);
