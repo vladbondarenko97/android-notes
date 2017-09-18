@@ -4,8 +4,6 @@ package com.vladhq.mynewapp;
 public class Paste {
     private String title, url, data;
 
-    public Paste() {
-    }
 
     public Paste(String title, String url, String data) {
         this.title = title;
